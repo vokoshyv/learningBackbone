@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="search_container"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+<script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+
+
+<script type="text/template" id="search_template">
+    <!-- Access template variables with <%= %> -->
+    <label><%= search_label %></label>
+    <input type="text" id="search_input" />
+    <input type="button" id="search_button" value="Search" />
+</script>
+
+<script type="text/javascript">
+     SearchView = Backbone.View.extend({
+        initialize: function(){
+            this.render();
+        },
+        render: function(){
+            //Pass variables in using Underscore.js Template
+            var variables = { search_label: "My Search" };
+            // Compile the template using underscore
+            var template = _.template( $("#search_template").html(), variables );
+            // Load the compiled HTML into the Backbone "el"
+            this.$el.html( template );
+        },
+        events: {
+            "click input[type=button]": "doSearch"  
+        },
+        doSearch: function( event ){
+            // Button clicked, you can access the element that was clicked with event.currentTarget
+            alert( "Search for " + $("#search_input").val() );
+        }
+    });
+        
+    var search_view = new SearchView({ el: $("#search_container") });
+</script>
+
+
+
+
+
+</body>
+</html>
